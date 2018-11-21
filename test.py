@@ -24,23 +24,14 @@ def main():
     list_pd = tda.make_list_pd(name_dir_pcd, num_pd, dim_pd)
 
     """
-    Stage 2: Compute the Gram matrix
+    Stage 2: Prepare a positive definite kernel and a weight function
     
     I define a positive definite kernel and a weight function as follows.
-    You can also define your p.d. kernel and weight function whatever you like.
-    name_rkhs is for p.d. kernel on the RKHS vectors 
-    (see Section 3.3 in http://jmlr.org/papers/v18/17-317.html)
-    approx is set whether you use the random Fourier features to compute the
-    Gram matrix efficiently.
-    (see Section 3.4 in http://jmlr.org/papers/v18/17-317.html)
-    If the number of birth-death generator is large, I recommend to use 
-    approx=True because it may take several days or months.
-    
+    You can define your p.d. kernel and weight function whatever you like.
     val_sigma is for k_{G}(x,y)=exp(-norm{x-y}^2 / 2 val_sigma^2)
     val_c and val_p are for w_{arc}(x)=arctan((pers(x) / val_c)^{val_p})
     I use some heuristics to determine the parameters.
     """
-
     def function_weight(_name_weight, _val_c=1.0, _val_p=1):
         if _name_weight == "arctan":
             def _func_weight(vec_bd):
@@ -66,6 +57,18 @@ def main():
     val_p = 5
     func_kernel = function_kernel("Gaussian", val_sigma)
     func_weight = function_weight("arctan", val_c, val_p)
+
+    """
+    Stage 3: Compute the Gram matrix
+    
+    name_rkhs is for p.d. kernel on the RKHS vectors 
+    (see Section 3.3 in http://jmlr.org/papers/v18/17-317.html)
+    approx is set whether you use the random Fourier features to compute the
+    Gram matrix efficiently.
+    (see Section 3.4 in http://jmlr.org/papers/v18/17-317.html)
+    If the number of birth-death generator is large, I recommend to use 
+    approx=True because it may take several days or months.
+    """
     name_rkhs = ["Gaussian", "Linear"][0]
     approx = [True, False][0]
     class_pwk = pwk.Kernel(
