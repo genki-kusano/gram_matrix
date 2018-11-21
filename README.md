@@ -1,4 +1,4 @@
-This is an example code to create a Gram matrix (and a distance matrix) from persistence diagrams by the persistence weighted kernel method.<br>
+This is an example code to compute a Gram matrix (and a distance matrix) from persistence diagrams by the persistence weighted kernel method.<br>
 I did this on macOS Mojave 10.14.1, python 3.7.1, and homcloud 2.0.0.<br>
 My python codes use matplotlib, tqdm, os, and numpy.<br>
 Reference: Kernel Method for Persistence Diagrams via Kernel Embedding and Weight Factor.
