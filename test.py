@@ -24,18 +24,7 @@ def main():
     list_pd = tda.make_list_pd(name_dir_pcd, num_pd, dim_pd)
 
     """
-    Stage 2: Define several parameters
-    
-    val_sigma is for k_{G}(x,y)=exp(-norm{x-y}^2 / 2 val_sigma^2)
-    val_c and val_p are for w_{arc}(x)=arctan((pers(x) / val_c)^{val_p})
-    I use some heuristics to determine the parameters.
-    """
-    val_sigma = tda.parameter_sigma(list_pd, name_dir_pcd)
-    val_c = tda.parameter_birth_death_pers(list_pd)[2]
-    val_p = 5
-
-    """
-    Stage 3: Compute the Gram matrix
+    Stage 2: Compute the Gram matrix
     
     I define a positive definite kernel and a weight function as follows.
     You can also define your p.d. kernel and weight function whatever you like.
@@ -46,6 +35,10 @@ def main():
     (see Section 3.4 in http://jmlr.org/papers/v18/17-317.html)
     If the number of birth-death generator is large, I recommend to use 
     approx=True because it may take several days or months.
+    
+    val_sigma is for k_{G}(x,y)=exp(-norm{x-y}^2 / 2 val_sigma^2)
+    val_c and val_p are for w_{arc}(x)=arctan((pers(x) / val_c)^{val_p})
+    I use some heuristics to determine the parameters.
     """
 
     def function_weight(_name_weight, _val_c=1.0, _val_p=1):
@@ -68,6 +61,9 @@ def main():
                 return np.dot(vec_bd_1, vec_bd_2)
         return _func_kernel
 
+    val_sigma = tda.parameter_sigma(list_pd, name_dir_pcd)
+    val_c = tda.parameter_birth_death_pers(list_pd)[2]
+    val_p = 5
     func_kernel = function_kernel("Gaussian", val_sigma)
     func_weight = function_weight("arctan", val_c, val_p)
     name_rkhs = ["Gaussian", "Linear"][0]
