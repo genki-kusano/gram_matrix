@@ -1,4 +1,4 @@
-This is used to create a Gram matrix from persistence diagrams.<br>
+This is an example code to create a Gram matrix from persistence diagrams.<br>
 I did this on macOS Mojave 10.14.1, python 3.7.1, and homcloud 2.0.0.<br>
 My python codes use matplotlib, tqdm, os, and numpy.<br>
 Reference: Kernel Method for Persistence Diagrams via Kernel Embedding and Weight Factor.
