@@ -20,7 +20,7 @@ def main():
     birth-death coordinates.
     In order to scale this square effect, I use np.sqrt to mat_pd
     """
-    name_dir_pcd = "%s/Desktop/data_tda/torus/pcd3_sample500_num40/" \
+    name_dir_pcd = "%s/Desktop/data_tda/torus/pcd3_sample500_num40" \
                    % os.path.expanduser('~')
     num_pd = 40
     list_pd = []
