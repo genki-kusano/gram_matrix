@@ -12,16 +12,21 @@ def main():
 
     name_dir_pcd is the name of folder containing persistence diagrams
     num_pd is the number of persistence diagrams in list_pd
-    dim_pd is the dimension of persistent homology
 
     list_pd = {D_1, ..., D_n} and each D_i is m * 2 matrix
     list_pd[0].shape = (m, 2) where m is the number of birth-death pairs
+
+    HomCloud (or CGAL, DIPHA) computes persistence diagrams in squared
+    birth-death coordinates.
+    In order to scale this square effect, I use np.sqrt to mat_pd
     """
-    name_dir_pcd = "%s/Desktop/data_tda/torus/pcd3_sample500_num40" \
+    name_dir_pcd = "%s/Desktop/data_tda/torus/pcd3_sample500_num40/pcd_pd/" \
                    % os.path.expanduser('~')
     num_pd = 40
-    dim_pd = 1
-    list_pd = tda.make_list_pd(name_dir_pcd, num_pd, dim_pd)
+    list_pd = []
+    for k in range(num_pd):
+        mat_pd = np.loadtxt("%s/dim1_%s.txt" % (name_dir_pcd, k)).reshape(-1, 2)
+        list_pd.append(np.sqrt(mat_pd))  # scaling from (b^2,d^2) to (b,d)
 
     """
     Stage 2: Prepare a positive definite kernel and a weight function
