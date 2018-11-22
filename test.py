@@ -25,7 +25,8 @@ def main():
     num_pd = 40
     list_pd = []
     for k in range(num_pd):
-        mat_pd = np.loadtxt("%s/pcd/dim1_%s.txt" % (name_dir_pcd, k)).reshape(-1, 2)
+        mat_pd = np.loadtxt("%s/pcd_pd/dim1_%s.txt" % (
+            name_dir_pcd, k)).reshape(-1, 2)
         list_pd.append(np.sqrt(mat_pd))  # scaling from (b^2,d^2) to (b,d)
 
     """
