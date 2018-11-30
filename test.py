@@ -20,13 +20,12 @@ def main():
     birth-death coordinates.
     In order to scale this square effect, I use np.sqrt to mat_pd
     """
-    name_dir_pcd = "%s/Desktop/data_tda/torus/pcd3_sample500_num40" \
+    name_dir_pcd = "%s/Desktop/data_tda/torus/pcd3_sample500_num40/pcd_pd/" \
                    % os.path.expanduser('~')
     num_pd = 40
     list_pd = []
     for k in range(num_pd):
-        mat_pd = np.loadtxt("%s/pcd_pd/dim1_%s.txt" % (
-            name_dir_pcd, k)).reshape(-1, 2)
+        mat_pd = np.loadtxt("%s/dim1_%s.txt" % (name_dir_pcd, k)).reshape(-1, 2)
         list_pd.append(np.sqrt(mat_pd))  # scaling from (b^2,d^2) to (b,d)
 
     """
@@ -81,6 +80,9 @@ def main():
         list_pd, func_kernel, func_weight, val_sigma, name_rkhs, approx)
     mat_gram = class_pwk.gram()
 
+    print("This is a Gram matrix")
+    print(mat_gram)
+    
     """
     You can see the Gram matrix
     If name_rkhs = "Linear", 
